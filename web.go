@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -255,7 +256,7 @@ func serveAsset(w http.ResponseWriter, r *http.Request, filename string) {
 		http.NotFound(w, r)
 		return
 	}
-	fi, err := AssetInfo(path)
+	fi, err := os.Stat(path)
 	if err != nil {
 		Error(w, err)
 		return
