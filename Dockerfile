@@ -37,7 +37,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN chmod +x /usr/bin/subspace /usr/local/bin/entrypoint.sh
 
 RUN apt-get update \
-    && apt-get install -y iproute2 iptables dnsmasq socat
+    && apt-get install -y iproute2 iptables dnsmasq socat wireguard-tools
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
