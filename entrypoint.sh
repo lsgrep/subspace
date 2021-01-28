@@ -28,10 +28,12 @@ if [ -z "${SUBSPACE_HTTP_INSECURE-}" ] ; then
 fi
 
 export NAMESERVER="8.8.8.8"
+export NAMESERVER6="2001:4860:4860::8888"
 export DEBIAN_FRONTEND="noninteractive"
 
 # Set DNS server
 echo "nameserver ${NAMESERVER}" >/etc/resolv.conf
+echo "nameserver ${NAMESERVER6}" >> /etc/resolv.conf
 
 # ipv4
 if ! /sbin/iptables -t nat --check POSTROUTING -s 10.99.97.0/24 -j MASQUERADE ; then
