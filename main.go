@@ -9,6 +9,7 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
@@ -125,8 +126,17 @@ func main() {
 		os.Exit(1)
 	}
 
+	// logger setup
+	logFile, err := os.OpenFile("/var/log/subspace.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
+	if err != nil {
+		logger.Fatal(err)
+	}
+	defer logFile.Close()
+
+	mw := io.MultiWriter(os.Stdout, logFile)
+	logger.SetOutput(mw)
+	logger.SetReportCaller(true)
 	// debug logging
-	logger.Out = os.Stdout
 	if debug {
 		logger.SetLevel(log.DebugLevel)
 	}

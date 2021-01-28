@@ -8,7 +8,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"time"
 
@@ -256,12 +255,18 @@ func serveAsset(w http.ResponseWriter, r *http.Request, filename string) {
 		http.NotFound(w, r)
 		return
 	}
-	fi, err := os.Stat(path)
-	if err != nil {
-		Error(w, err)
-		return
-	}
-	http.ServeContent(w, r, path, fi.ModTime(), bytes.NewReader(b))
+	//dir, err := os.Getwd()
+	//if err != nil {
+	//	logger.Fatal(err)
+	//}
+
+	//fi, err := os.Stat(path)
+	//if err != nil {
+	//	logger.Error(err, dir)
+	//	Error(w, err)
+	//	return
+	//}
+	http.ServeContent(w, r, path, time.Unix(0, 0), bytes.NewReader(b))
 }
 
 func ValidateSession(r *http.Request) (*Session, error) {
